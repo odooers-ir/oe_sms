@@ -1,0 +1,25 @@
+<odoo>
+        <record id="oe_sms_inherit" model="ir.ui.view">
+            <field name="name">sms.sms.view.inherit.form</field>
+            <field name="model">sms.sms</field>
+            <field name="inherit_id" ref="sms.sms_tsms_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="inside">
+                    <notebook>
+                        <page name="provider_result" string="Provider Result" invisible="sms_send_from == 'odoo_iap'">
+                            <group name="oe_details">
+                       
+                               
+                                <field name="oe_status_code" readonly="True"/>
+                                <field name="oe_status_error" readonly="True"/>
+                    
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+                <field name="mail_message_id" position="after">
+                    <field name="sms_send_from" readonly='True'/>
+                </field>
+            </field>
+        </record>
+</odoo>

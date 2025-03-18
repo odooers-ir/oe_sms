@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_oe_sms" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.ho.sms</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+           
+            <xpath expr="//form" position="inside">
+                    <app data-string="SMS" string="SMS" name="oe_sms" groups="base.group_system">
+              
+                    <block title="SMS Info" id="sms_info">
+                            
+                            <setting id="set_provider_type" help="Choose with which provider you want to send SMS messages">
+                                <field name="sms_provider_type"/>
+                            </setting>
+
+                            <setting id="set_sms_api_key" help="" invisible="sms_provider_type == 'odoo_iap'">
+                                <field name="sms_api_key"/>
+                            </setting>
+
+                            <setting id="set_sms_user" help="" invisible="1 == 1">
+                                <field name="sms_user"/>
+                            </setting>
+                          
+                            <setting id="set_sms_password" help="" invisible="1 ==1">
+                                <field name="sms_password"/>
+                            </setting>
+
+                            <setting id="set_sms_originator" help="" invisible="sms_provider_type == 'odoo_iap'">
+                                <field name="sms_originator"/>
+                            </setting>
+
+                    </block>
+           
+      
+            </app>
+          </xpath>
+        </field>
+    </record>
+</odoo>

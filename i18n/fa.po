@@ -1,0 +1,142 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* oe_sms
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e-20230720\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-08-29 08:36+0000\n"
+"PO-Revision-Date: 2023-08-29 08:36+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: oe_sms
+#: model_terms:ir.ui.view,arch_db:oe_sms.res_config_settings_view_form_oe_sms
+msgid "<span class=\"o_form_label\">SMS Provider</span>"
+msgstr "<span class=\"o_form_label\">خدمات دهنده پیامک</span>"
+
+#. module: oe_sms
+#: model_terms:ir.ui.view,arch_db:oe_sms.res_config_settings_view_form_oe_sms
+msgid "Choose with which provider you want to send SMS messages"
+msgstr "انتخاب کنید که با کدام خدمات دهنده می خواهید پیامک ارسال کنید"
+
+#. module: oe_sms
+#: model:ir.model,name:oe_sms.model_res_config_settings
+msgid "Config Settings"
+msgstr "تنظیمات پیکربندی"
+
+#. module: oe_sms
+#: model:ir.model.fields.selection,name:oe_sms.selection__sms_sms__oe_reason_code__22
+msgid "Delivery Failure"
+msgstr ""
+
+#. module: oe_sms
+#: model:ir.model.fields.selection,name:oe_sms.selection__res_config_settings__sms_provider_type__melipayamak
+#: model:ir.model.fields.selection,name:oe_sms.selection__sms_sms__sms_send_from__melipayamak
+msgid "Meli Payamak"
+msgstr ""
+
+#. module: oe_sms
+#: model:ir.model.fields.selection,name:oe_sms.selection__sms_sms__oe_reason_code__0
+msgid "No error"
+msgstr ""
+
+#. module: oe_sms
+#: model:ir.model.fields.selection,name:oe_sms.selection__res_config_settings__sms_provider_type__odoo_iap
+#: model:ir.model.fields.selection,name:oe_sms.selection__sms_sms__sms_send_from__odoo_iap
+msgid "Odoo IAP"
+msgstr ""
+
+#. module: oe_sms
+#: model:ir.model,name:oe_sms.model_sms_sms
+msgid "Outgoing SMS"
+msgstr ""
+
+#. module: oe_sms
+#: model_terms:ir.ui.view,arch_db:oe_sms.oe_sms_inherit
+msgid "Provider Result"
+msgstr "نتایج خدمات دهنده"
+
+#. module: oe_sms
+#: model:ir.model.fields.selection,name:oe_sms.selection__sms_sms__oe_reason_code__21
+msgid "Recipient number incorrect"
+msgstr ""
+
+#. module: oe_sms
+#: model:ir.model.fields.selection,name:oe_sms.selection__sms_sms__oe_reason_code__20
+msgid "Recipient number unreachable"
+msgstr ""
+
+#. module: oe_sms
+#: model:ir.model,name:oe_sms.model_sms_resend_recipient
+msgid "Resend Notification"
+msgstr ""
+
+#. module: oe_sms
+#: model:ir.model,name:oe_sms.model_sms_api
+msgid "SMS API"
+msgstr ""
+
+#. module: oe_sms
+#: model:ir.model.fields,field_description:oe_sms.field_res_config_settings__sms_provider_type
+msgid "SMS Provider"
+msgstr ""
+
+#. module: oe_sms
+#: model:ir.model.fields,field_description:oe_sms.field_res_config_settings__sms_originator
+msgid "SMS originator"
+msgstr ""
+
+#. module: oe_sms
+#: model:ir.model.fields,field_description:oe_sms.field_res_config_settings__sms_password
+msgid "SMS password"
+msgstr ""
+
+#. module: oe_sms
+#: model:ir.model.fields,field_description:oe_sms.field_sms_sms__sms_send_from
+msgid "SMS send from"
+msgstr "پیامک ارسالی از"
+
+#. module: oe_sms
+#: model_terms:ir.ui.view,arch_db:oe_sms.res_config_settings_view_form_oe_sms
+msgid "SMS service"
+msgstr "خدمات پیامک"
+
+#. module: oe_sms
+#: model:ir.model.fields,field_description:oe_sms.field_res_config_settings__sms_user
+msgid "SMS user"
+msgstr ""
+
+#. module: oe_sms
+#: model:ir.model.fields.selection,name:oe_sms.selection__sms_sms__oe_reason_code__31
+msgid ""
+"The recipient is blacklisted (e.g. People that respond \"STOP\" to an "
+"earlier message can appear in the blacklist)"
+msgstr ""
+
+#. module: oe_sms
+#: model_terms:ir.ui.view,arch_db:oe_sms.res_config_settings_view_form_oe_sms
+msgid "em SMS"
+msgstr "پیامک"
+
+#. module: oe_sms
+#: model:ir.model.fields,field_description:oe_sms.field_sms_resend_recipient__oe_reason_code
+#: model:ir.model.fields,field_description:oe_sms.field_sms_sms__oe_reason_code
+msgid "reason code"
+msgstr "کد دلیل"
+
+#. module: oe_sms
+#: model:ir.model.fields,field_description:oe_sms.field_sms_sms__oe_status_code
+msgid "status code"
+msgstr "کد وضعیت"
+
+#. module: oe_sms
+#: model:ir.model.fields,field_description:oe_sms.field_sms_resend_recipient__oe_status_error
+#: model:ir.model.fields,field_description:oe_sms.field_sms_sms__oe_status_error
+msgid "status error"
+msgstr "خطای وضعیت"
