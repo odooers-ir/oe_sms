@@ -4,7 +4,7 @@
         <field name="model">sms.resend</field>
         <field name="inherit_id" ref="sms.mail_resend_message_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='recipient_ids']/list/field[@name='failure_type']" position="after">
+            <xpath expr="//field[@name='recipient_ids']/tree/field[@name='failure_type']" position="after">
                 <field name="oe_reason_code"/>
                 <field name="oe_status_error"/>
             </xpath>
