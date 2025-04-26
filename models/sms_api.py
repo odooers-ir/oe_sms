@@ -263,7 +263,9 @@ class SmsApi(SmsApi):
                         'credit': 0,
                         'kavenegar': True,
                         'melipayamak': False,
-                        'ghasedak': False
+                        'ghasedak': False,
+                        'ippanel': False ,
+                        'asanak':False
                     }
                     re=response['return']
                     ent=  response['entries'][0]
@@ -287,7 +289,9 @@ class SmsApi(SmsApi):
                         return_value.update({ 'state': 'server_error',
                                            'kavenegar': True,
                                            'melipayamak': False,
-                                           'ghasedak': False  })
+                                           'ghasedak': False,
+                                            'ippanel': False ,
+                                            'asanak':False  })
                     
                     return_values.append(return_value)
 
@@ -387,7 +391,8 @@ class SmsApi(SmsApi):
                         'kavenegar': False,
                         'melipayamak': False,
                         'ghasedak': False,
-                        'ippanel': True
+                        'ippanel': True,
+                        'asanak':False
                     }
                     rj=response.json()
                     
@@ -417,7 +422,8 @@ class SmsApi(SmsApi):
                                            'kavenegar': False,
                                            'melipayamak': False ,
                                            'ghasedak': False,
-                                           'ippanel': True }) 
+                                           'ippanel': True,
+                                            'asanak':False }) 
 
                     return_values.append(return_value)
 
