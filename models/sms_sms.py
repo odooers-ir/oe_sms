@@ -38,7 +38,9 @@ class SmsSms(models.Model):
         selection=[
             ('ghasedak', 'Ghasedak'),
             ('kavenegar', 'Kavenegar'),
-            ('melipayamak', 'Meli Payamak'),
+            ('melipayamak', 'MeliPayamak'),
+            ('ippanel', 'IPPanel'),
+            ('asanak', 'Asanak'),
             ('odoo_iap', 'Odoo IAP')],
         string='SMS send from',
         copy=False,
@@ -69,6 +71,8 @@ class SmsSms(models.Model):
             kave=False
             meli=False
             ghased=False
+            ipp=False
+            asa=False
 
             if sms_provider_type == 'melipayamak':
                 meli=True
@@ -79,7 +83,13 @@ class SmsSms(models.Model):
             if sms_provider_type == 'ghasedak':
                 ghased=True
 
-            results = [{'uuid': sms.uuid, 'state': 'server_error', 'kavenegar': kave,'melipayamak': meli,'ghasedak': ghased } for sms in self]
+            if sms_provider_type == 'ippanel':
+                ipp=True
+
+            if sms_provider_type == 'asanak':
+                asa=True
+
+            results = [{'uuid': sms.uuid, 'state': 'server_error', 'kavenegar': kave,'melipayamak': meli,'ghasedak': ghased,'ippanel': ipp ,'asanak' :asa} for sms in self]
 
         else:
             _logger.info('Send batch %s SMS: %s: gave %s', len(self.ids), self.ids, results)
@@ -127,6 +137,25 @@ class SmsSms(models.Model):
                     ss.write({'sms_send_from': 'ghasedak'})
                 ##############
             
+             ###############
+                print("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
+                results_ipp = [result['uuid'] for result in results if result['ippanel']] 
+                print (results_ipp)
+                if ss.uuid in results_ipp:
+                    print ("iiiiiiiiiiiiiiiii")
+                    print (ss)
+                    ss.write({'sms_send_from': 'ippanel'})
+                ##############
+
+            ###############
+                print("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
+                results_asa = [result['uuid'] for result in results if result['asanak']] 
+                print (results_asa)
+                if ss.uuid in results_asa:
+                    print ("iiiiiiiiiiiiiiiii")
+                    print (ss)
+                    ss.write({'sms_send_from': 'asanak'})
+                ##############
             #############################################################
             if success_state := self.IAP_TO_SMS_STATE_SUCCESS.get(iap_state):
                 sms_sudo.sms_tracker_id._action_update_from_sms_state(success_state)

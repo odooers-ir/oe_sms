@@ -15,15 +15,15 @@
                                 <field name="sms_provider_type"/>
                             </setting>
 
-                            <setting id="set_sms_api_key" help="" invisible="sms_provider_type == 'odoo_iap'">
+                            <setting id="set_sms_api_key" help="" invisible="sms_provider_type == 'odoo_iap' or sms_provider_type == 'asanak'">
                                 <field name="sms_api_key"/>
                             </setting>
 
-                            <setting id="set_sms_user" help="" invisible="1 == 1">
+                            <setting id="set_sms_user" help="" invisible="sms_provider_type != 'asanak'">
                                 <field name="sms_user"/>
                             </setting>
                           
-                            <setting id="set_sms_password" help="" invisible="1 ==1">
+                            <setting id="set_sms_password" help="" invisible="sms_provider_type != 'asanak'">
                                 <field name="sms_password"/>
                             </setting>
 
