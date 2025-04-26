@@ -9,7 +9,9 @@ class ResConfigSettings(models.TransientModel):
         selection=[
             ('ghasedak', 'Ghasedak'),
             ('kavenegar', 'Kavenegar'),
-            ('melipayamak', 'Meli Payamak'),
+            ('melipayamak', 'MeliPayamak'),
+            ('ippanel', 'IPPanel'),
+            ('asanak', 'Asanak'),
             ('odoo_iap', 'Odoo IAP'),
         ],
         string='SMS Provider',

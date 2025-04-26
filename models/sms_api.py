@@ -78,6 +78,78 @@ class SmsApi(SmsApi):
             _logger.error('An error encountered: %s ' % e)
         return response
 
+    def _send_sms_ippanel(self,  message,number,sms_api_key,sms_originator):
+        
+        print ("ffffffffffffffff")
+      
+       # number = number.replace("+98", "0")
+
+        url = "https://api2.ippanel.com/api/v1/sms/send/webservice/single"
+        method = "POST"
+        headers = {'accept':'application/json' , 'apikey': sms_api_key,'Content-Type': 'application/json'}
+        data = {
+            "Receptor": number,
+            "sender": sms_originator,
+            "message": message,
+
+            "recipient": [
+                number
+            ],
+            "sender": sms_originator,
+            "message": message,
+        }
+        try:
+            response = requests.request("POST", url, data=json.dumps(data), headers=headers)
+            #response = requests.request("POST", url, data=data, headers=headers)
+            print(response)
+
+
+           # response = requests.request(method, "https://rest.payamak-panel.com/api/SendSMS/SendSMS", json=data, headers=headers, timeout=60)
+            print ("Fffffffffffffffffffffffffff")
+            print (response)
+            #response.raise_for_status()
+        except Exception as e:
+            _logger.error('An error encountered: %s ' % e)
+        return response
+
+    def _send_sms_asanak(self,  message,number,sms_user,sms_password,sms_originator):
+        
+        print ("ffffffffffffffff")
+      
+        number = number.replace("+98", "0")
+
+        url = "https://sms.asanak.ir/webservice/v2rest/sendsms"
+        method = "POST"
+        #headers = {'accept':'application/json' , 'apikey': sms_api_key,'Content-Type': 'application/json'}
+        headers = {"Content-Type": "application/x-www-form-urlencoded"}
+        data = {
+            
+            'username': sms_user,
+            'password': sms_password,
+            'source': sms_originator,
+            'message': message,
+            'destination':[number],
+
+        }
+
+        print (data)
+        try:
+            response = requests.request("POST", url, data=data,  headers=headers, timeout=5)
+            #response = requests.request("POST", url, data=data, headers=headers)
+            print(response)
+
+
+           # response = requests.request(method, "https://rest.payamak-panel.com/api/SendSMS/SendSMS", json=data, headers=headers, timeout=60)
+            print ("Fffffffffffffffffffffffffff")
+            print (response)
+            #response.raise_for_status()
+        except Exception as e:
+            _logger.error('An error encountered: %s ' % e)
+        return response
+
+    
+    
+    
     def _send_sms_single(self, message, number):
         sms_provider_type = self.env['ir.config_parameter'].sudo().get_param('oe_sms.sms_provider_type')
         sms_api_key =  self.env['ir.config_parameter'].sudo().get_param('oe_sms.sms_api_key')
@@ -138,7 +210,9 @@ class SmsApi(SmsApi):
                         'credit': 0,
                         'kavenegar': False,
                         'melipayamak': True,
-                        'ghasedak': False
+                        'ghasedak': False,
+                        'ippanel': False,
+                        'asanak':False
                     }
                     rj=response.json()
                     recid=rj['recId']
@@ -155,7 +229,9 @@ class SmsApi(SmsApi):
                         return_value.update({ 'state': 'server_error',
                                            'kavenegar': False,
                                            'melipayamak': True,
-                                           'ghasedak': False  }) 
+                                           'ghasedak': False,
+                                            'ippanel': False ,
+                                            'asanak':False }) 
 
                     return_values.append(return_value)
 
@@ -247,7 +323,9 @@ class SmsApi(SmsApi):
                         'credit': 0,
                         'kavenegar': False,
                         'melipayamak': False,
-                        'ghasedak': True
+                        'ghasedak': True,
+                        'ippanel': False,
+                        'asanak':False
                     }
                     rj=response.json()
                     
@@ -270,10 +348,156 @@ class SmsApi(SmsApi):
                         return_value.update({ 'state': 'server_error',
                                            'kavenegar': False,
                                            'melipayamak': False ,
-                                           'ghasedak': True }) 
+                                           'ghasedak': True,
+                                            'ippanel': False,
+                                            'asanak':False }) 
 
                     return_values.append(return_value)
 
             return return_values
       
+
+        if sms_provider_type == 'ippanel':
+            return_values = []
+            
+            print ("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            #ir_config_param = self.env['ir.config_parameter'].sudo().get_param
+            #sms_user = ir_config_param('oe_sms.sms_user')
+            #sms_password = ir_config_param('oe_sms.sms_password')
+            #sms_originator = ir_config_param('oe_sms.sms_originator')
+
+            sms_api_key =  self.env['ir.config_parameter'].sudo().get_param('oe_sms.sms_api_key')
+            sms_originator =  self.env['ir.config_parameter'].sudo().get_param('oe_sms.sms_originator')
+            print (messages)
+            print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+                
+            for message in messages:
+                
+                for number in message['numbers']:
+           
+                    response = self._send_sms_ippanel(message['content'],number['number'],sms_api_key,sms_originator)    
+                
+                    print ("responseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+                    print (response)
+                    
+                    return_value = {
+                        'uuid': number.get('uuid'),
+                        'state': 'success',
+                        'credit': 0,
+                        'kavenegar': False,
+                        'melipayamak': False,
+                        'ghasedak': False,
+                        'ippanel': True
+                    }
+                    rj=response.json()
+                    
+                    print(response.text)
+                    print(rj)
+
+                    status= rj ['status']
+                    stm =  rj['error_message']
+                                    
+                    print (status)
+                    print (stm)
+                  
+                   
+                    print ("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+              
+                    if response.status_code != 200:
+                    
+                        sms_id = self.env['sms.sms'].sudo().browse(number['uuid'])
+                        #error_code = json.dumps(json.loads(response.text), indent=4)
+                        sms_id.write({
+                            'oe_status_code': status,
+                            'oe_status_error': stm,
+                        })
+                        sms_id.with_context(from_sms_api=True).action_generate_activity(
+                            stm, sms_id.mail_message_id.model, sms_id.mail_message_id.res_id, sms_id)
+                        return_value.update({ 'state': 'server_error',
+                                           'kavenegar': False,
+                                           'melipayamak': False ,
+                                           'ghasedak': False,
+                                           'ippanel': True }) 
+
+                    return_values.append(return_value)
+
+            return return_values
+      
+        if sms_provider_type == 'asanak':
+            return_values = []
+            
+            print ("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            #ir_config_param = self.env['ir.config_parameter'].sudo().get_param
+            #sms_user = ir_config_param('oe_sms.sms_user')
+            #sms_password = ir_config_param('oe_sms.sms_password')
+            #sms_originator = ir_config_param('oe_sms.sms_originator')
+
+            #sms_api_key =  self.env['ir.config_parameter'].sudo().get_param('oe_sms.sms_api_key')
+            
+            sms_originator =  self.env['ir.config_parameter'].sudo().get_param('oe_sms.sms_originator')
+            sms_user = self.env['ir.config_parameter'].sudo().get_param('oe_sms.sms_user')
+            sms_password = self.env['ir.config_parameter'].sudo().get_param('oe_sms.sms_password')
+
+
+            print (messages)
+            print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+                
+            for message in messages:
+                
+                for number in message['numbers']:
+           
+                    response = self._send_sms_asanak(message['content'],number['number'],sms_user,sms_password,sms_originator)    
+                
+                    print ("responseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+                    print (response)
+                    
+                    return_value = {
+                        'uuid': number.get('uuid'),
+                        'state': 'success',
+                        'credit': 0,
+                        'kavenegar': False,
+                        'melipayamak': False,
+                        'ghasedak': False,
+                        'ippanel': False,
+                        'asanak':True
+                    }
+                    rj=response.json()
+                    
+                    print(response.text)
+                    print(rj)
+                    asmt= rj['meta']
+                    status= asmt ['status']
+                    stm =  asmt['message']
+                                    
+                    print (status)
+                    print (stm)
+                  
+                   
+                    print ("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+              
+                    if response.status_code != 200:
+                    
+                        sms_id = self.env['sms.sms'].sudo().browse(str(number['uuid']))
+                        #error_code = json.dumps(json.loads(response.text), indent=4)
+                        print (number['uuid'])
+                        print (sms_id)
+                        sms_id.write({
+                            'oe_status_code': status,
+                            'oe_status_error': stm,
+                        })
+                        sms_id.with_context(from_sms_api=True).action_generate_activity(
+                            stm, sms_id.mail_message_id.model, sms_id.mail_message_id.res_id, sms_id)
+                        return_value.update({ 'state': 'server_error',
+                                           'kavenegar': False,
+                                           'melipayamak': False ,
+                                           'ghasedak': False,
+                                           'ippanel': False,
+                                            'asanak':True }) 
+
+                    return_values.append(return_value)
+
+            return return_values
+      
+       
+       
         return super(SmsApi, self)._send_sms_batch(messages, delivery_reports_url)
