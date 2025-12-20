@@ -17,12 +17,12 @@
     # Check https://github.com/odoo/odoo/blob/16.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'Extra Tools',
-    'version': '18.0.1.0.1',
+    'version': '19.0.1.0.0',
     'depends': ['sms'],
 
     # always loaded
     'data': [
-        'wizard/sms_resend_view.xml',
+        #'wizard/sms_resend_view.xml',
         'views/sms_sms_view.xml',
         'views/res_config_settings_views.xml',
     ]
